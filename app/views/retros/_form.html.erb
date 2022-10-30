@@ -1,0 +1,17 @@
+<%= form_with(model: @retro, url: [@team, @retro]) do |form| %>
+  <% if retro.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(retro.errors.count, "error") %> prohibited this retro from being saved:</h2>
+
+      <ul>
+        <% retro.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,21 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @retro %>
+
+<br>
+
+<h2>Chat</h2>
+<%= render @messages %>
+<%= turbo_stream_from @chat %>
+<div id="messages">
+</div>
+<%= render partial: 'messages/new_message_form' %>
+
+<br>
+
+<div>
+  <%= link_to "Edit this retro", edit_team_retro_path(@retro) %> |
+  <%= link_to "Back to retros", team_retros_path %>
+
+  <%= button_to "Destroy this retro", team_retros_path, method: :delete %>
+</div>

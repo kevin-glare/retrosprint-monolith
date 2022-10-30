@@ -1,0 +1,73 @@
+require:
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  SuggestExtensions: false
+  TargetRubyVersion: 3.1.2
+  Exclude:
+    - app/admin/**/*
+    - bin/**/*
+    - db/**/*
+    - spec/**/*
+
+Metrics/AbcSize:
+  Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+    - 'spec/**/**/*.rb'
+    - 'config/routes.rb'
+Metrics/ClassLength:
+  Max: 150
+Metrics/PerceivedComplexity:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/ParameterLists:
+  Enabled: false
+Metrics/MethodLength:
+  Max: 30
+
+Layout/LineLength:
+  Max: 140
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: false
+Layout/SpaceAroundBlockParameters:
+  Enabled: false
+Layout/SpaceAfterComma:
+  Enabled: false
+
+Style/RescueStandardError:
+  Enabled: false
+Style/AsciiComments:
+  Enabled: false
+Style/CommentAnnotation:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Naming/VariableNumber:
+  Enabled: false
+
+RSpec/EmptyExampleGroup:
+  Enabled: false
+RSpec/LetSetup:
+  Enabled: false
+RSpec/MultipleMemoizedHelpers:
+  Max: 20
+
+Rails/InverseOf:
+  Enabled: false
+Rails/SkipsModelValidations:
+  AllowedMethods:
+    - update_all
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - development
+    - test

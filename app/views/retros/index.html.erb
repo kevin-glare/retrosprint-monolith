@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Retros</h1>
+
+<div id="retros">
+  <% @retros.each do |retro| %>
+    <%= render retro %>
+    <p>
+      <%= link_to "Show this retro", [@team, retro] %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New retro", new_team_retro_path %>

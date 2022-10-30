@@ -1,0 +1,8 @@
+<div class="form-group msg-form">
+  <%= form_with(model: Message.new, remote: true, class: "d-flex", data: { controller: "form", action: "turbo:submit-end->form#clear" }) do |f| %>
+    <%= f.text_field :content, id: 'chat-text', class: "form-control msg-content", autocomplete: 'off' %>
+    <%= f.hidden_field :chat_id, value: @chat.id %>
+    <%= f.hidden_field :chat_type, value: @chat.class.name %>
+    <%= f.submit data: { disable_with: false }, class: "btn btn-primary" %>
+  <% end %>
+</div>
