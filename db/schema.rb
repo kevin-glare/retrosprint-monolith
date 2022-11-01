@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_30_195651) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_31_073604) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,6 +47,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_30_195651) do
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_retros_on_deleted_at"
     t.index ["team_id"], name: "index_retros_on_team_id"
+  end
+
+  create_table "stickers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "retro_id", null: false
+    t.uuid "user_id", null: false
+    t.string "type", null: false
+    t.text "content", default: "", null: false
+    t.jsonb "data", default: {}, null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deleted_at"], name: "index_stickers_on_deleted_at"
+    t.index ["retro_id"], name: "index_stickers_on_retro_id"
+    t.index ["user_id"], name: "index_stickers_on_user_id"
   end
 
   create_table "teams", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -103,6 +117,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_30_195651) do
   add_foreign_key "chats", "users"
   add_foreign_key "messages", "users"
   add_foreign_key "retros", "teams"
+  add_foreign_key "stickers", "retros"
+  add_foreign_key "stickers", "users"
   add_foreign_key "users_teams", "teams"
   add_foreign_key "users_teams", "users"
 end

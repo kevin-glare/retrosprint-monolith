@@ -3,6 +3,25 @@
 <%= render @retro %>
 
 <br>
+<h2>Stickers</h2>
+<%= turbo_stream_from @stickers %>
+<% @stickers.each do |user_full_name, stricker_groups| %>
+  <div class="row">
+    <h2><%= user_full_name %></h2>
+    <% %i(good bad think).each do |type| %>
+      <div class="col-4">
+        <div class="row">
+          <% stricker_groups[type].each do |sticker| %>
+            <div class="col">
+              <%= render sticker %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+<br>
 
 <h2>Chat</h2>
 <%= render @messages %>

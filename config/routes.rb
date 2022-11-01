@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :teams do
-    resources :retros
+    resources :retros do
+      resources :stickers, only: :update
+    end
   end
 
   resources :messages, only: :create

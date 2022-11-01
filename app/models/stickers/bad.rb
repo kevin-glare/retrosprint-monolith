@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-module MessagesHelper
+class Stickers::Bad < Sticker
 end

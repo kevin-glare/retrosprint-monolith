@@ -19,7 +19,7 @@ Bundler.require(*Rails.groups)
 module Retrosprint
   class Application < Rails::Application
     config.load_defaults 7.0
-    config.hosts << "2c7e-5-18-237-2.ngrok.io"
+    config.hosts << '2c7e-5-18-237-2.ngrok.io'
     config.eager_load_paths << Rails.root.join('lib/modules')
 
     config.time_zone = 'Europe/Moscow'

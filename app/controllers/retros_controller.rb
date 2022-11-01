@@ -11,8 +11,26 @@ class RetrosController < ApplicationController
 
   # GET /retros/1
   def show
-    @messages = @retro.messages
+    @messages = @retro.messages.includes(:user)
     @chat = @retro
+    @stickers = {}
+
+    @retro.stickers.includes(:user).group_by(&:user).each do |user, stickers|
+      @stickers[user.full_name] ||= { good: [], bad: [], think: [] }
+
+      stickers.each do |sticker|
+        case sticker
+        when Stickers::Good
+          @stickers[user.full_name][:good] << sticker
+        when Stickers::Bad
+          @stickers[user.full_name][:bad] << sticker
+        when Stickers::Think
+          @stickers[user.full_name][:think] << sticker
+        else
+          Rails.logger.error "BAD STICKER: #{sticker.inspect}"
+        end
+      end
+    end
   end
 
   # GET /retros/new
@@ -27,11 +45,19 @@ class RetrosController < ApplicationController
   def create
     @retro = @team.retros.build
 
-    if @retro.save
-      redirect_to [@team, @retro], notice: 'Retro was successfully created.'
-    else
-      render :new, status: :unprocessable_entity
+    ActiveRecord::Base.transaction do
+      @team.users.each do |user|
+        %w[Stickers::Bad Stickers::Good Stickers::Think].each do |type|
+          3.times { |_| @retro.stickers.build(user:, type:) }
+        end
+      end
+
+      @retro.save
     end
+
+    redirect_to [@team, @retro], notice: 'Retro was successfully created.'
+  rescue ActiveRecord::RecordInvalid
+    render :new, status: :unprocessable_entity
   end
 
   # PATCH/PUT /retros/1

@@ -7,6 +7,7 @@ ruby '3.1.2'
 
 gem 'rails', '~> 7.0.4'
 
+gem 'bootsnap', require: false
 gem 'devise'
 gem 'importmap-rails'
 gem 'paranoia'
@@ -17,7 +18,6 @@ gem 'sprockets-rails'
 gem 'stimulus-rails'
 gem 'turbo-rails'
 
-gem 'bootsnap', require: false
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do

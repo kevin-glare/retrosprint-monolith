@@ -7,4 +7,8 @@ class User < ApplicationRecord
   has_many :teams, through: :users_teams
 
   has_many :messages, dependent: :destroy
+
+  def full_name
+    "#{first_name} #{last_name}".presence || username
+  end
 end
